@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meguri - 介護サービス三つ折りパンフレット</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+            background-color: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        /* Container for both sides */
+        .brochure-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        /* Each side of the brochure */
+        .brochure-side {
+            width: 297mm;
+            height: 210mm;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            display: flex;
+            position: relative;
+        }
+        
+        /* Fold lines indicator */
+        .fold-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background-color: #ddd;
+            border: 1px dashed #999;
+            z-index: 10;
+            pointer-events: none;
+        }
+        
+        .fold-line-1 {
+            left: 33.33%;
+        }
+        
+        .fold-line-2 {
+            left: 66.66%;
+        }
+        
+        /* Panel styling */
+        .panel {
+            flex: 1;
+            padding: 30px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* OUTSIDE PANELS (Front cover, back, and inside flap) */
+        
+        /* Panel 1: Back Panel */
+        .outside .panel-1 {
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .map-section {
+            flex: 1;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .map-placeholder {
+            height: 150px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #adb5bd;
+            margin-bottom: 15px;
+        }
+        
+        .access-info h3 {
+            color: #ff6b9d;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .access-details {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #495057;
+        }
+        
+        .certifications {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+        }
+        
+        .cert-item {
+            text-align: center;
+            font-size: 12px;
+            color: #6c757d;
+        }
+        
+        .cert-icon {
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
+        
+        /* Panel 2: Inside Flap */
+        .outside .panel-2 {
+            background: linear-gradient(135deg, #fff5f8 0%, #fff 100%);
+        }
+        
+        .contact-form {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+        
+        .form-title {
+            color: #ff6b9d;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .form-field {
+            margin-bottom: 15px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 14px;
+            color: #495057;
+            margin-bottom: 5px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e9ecef;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .care-scenes {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .care-image-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            flex: 1;
+        }
+        
+        .care-scene {
+            text-align: center;
+        }
+        
+        .care-illustration {
+            margin-bottom: 10px;
+        }
+        
+        .scene-photo {
+            width: 200px;
+            height: 120px;
+            margin: 0 auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            position: relative;
+            background-color: #f5f5f5;
+        }
+        
+        .photo-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+            position: relative;
+        }
+        
+        .photo-placeholder::before {
+            content: '📷';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 20px;
+            opacity: 0.3;
+        }
+        
+        .placeholder-text {
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            line-height: 1.5;
+            padding: 10px;
+        }
+        
+        /* Style for when real images are added */
+        .scene-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .scene-caption {
+            font-size: 14px;
+            color: #666;
+            font-weight: bold;
+        }
+        
+        .care-message {
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        /* Panel 3: Front Cover */
+        .outside .panel-3 {
+            background: linear-gradient(135deg, #ff6b9d 0%, #feca57 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cover-decoration {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            top: -150px;
+            right: -150px;
+        }
+        
+        .logo-large {
+            font-size: 72px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .tagline-large {
+            font-size: 28px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cover-icons {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cover-icon {
+            font-size: 48px;
+            opacity: 0.9;
+        }
+        
+        /* INSIDE PANELS */
+        
+        /* Panel 4: Services Detail */
+        .inside .panel-1 {
+            background-color: #fff;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .section-header h2 {
+            color: #ff6b9d;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .services-detailed {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .service-detail {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            align-items: center;
+        }
+        
+        .service-detail-icon {
+            font-size: 48px;
+            flex-shrink: 0;
+        }
+        
+        .service-detail-content h3 {
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 20px;
+        }
+        
+        .service-detail-content p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        /* Panel 5: Staff & Features */
+        .inside .panel-2 {
+            background-color: #fff5f8;
+        }
+        
+        .staff-showcase {
+            margin-bottom: 30px;
+        }
+        
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .staff-card {
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .staff-photo {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 10px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #ff6b9d;
+        }
+        
+        .staff-photo-placeholder {
+            width: 100%;
+            height: 100%;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .photo-icon {
+            font-size: 30px;
+            color: #ccc;
+        }
+        
+        /* Style for when real images are added */
+        .staff-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .staff-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .staff-qualification {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .features-list {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        
+        .feature-check {
+            color: #ff6b9d;
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        /* Panel 6: Testimonials & CTA */
+        .inside .panel-3 {
+            background-color: #fff;
+        }
+        
+        .testimonials {
+            margin-bottom: 30px;
+        }
+        
+        .testimonial {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ff6b9d;
+        }
+        
+        .testimonial-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #495057;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            text-align: right;
+            font-size: 12px;
+            color: #6c757d;
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #ff6b9d 0%, #feca57 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .cta-title {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .phone-large {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .cta-hours {
+            font-size: 14px;
+        }
+        
+        /* Labels for panels */
+        .panel-label {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 10px;
+            color: #adb5bd;
+            background-color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            opacity: 0.7;
+        }
+        
+        /* Print Styles */
+        @media print {
+            body {
+                background-color: white;
+                margin: 0;
+                padding: 0;
+            }
+            
+            .brochure-side {
+                box-shadow: none;
+                margin: 0;
+                page-break-after: always;
+            }
+            
+            .fold-line {
+                display: none;
+            }
+            
+            .panel-label {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="brochure-container">
+        <!-- OUTSIDE (表面) -->
+        <div class="brochure-side outside">
+            <div class="fold-line fold-line-1"></div>
+            <div class="fold-line fold-line-2"></div>
+            
+            <!-- Panel 1: Back Panel (左) -->
+            <div class="panel panel-1">
+                <span class="panel-label">裏表紙</span>
+                <div class="map-section">
+                    <div class="map-placeholder">🗺️</div>
+                    <div class="access-info">
+                        <h3>アクセス情報</h3>
+                        <div class="access-details">
+                            <strong>株式会社Meguri 本社</strong><br>
+                            〒100-0001<br>
+                            東京都千代田区千代田1-1-1<br>
+                            メグリビル 3F<br><br>
+                            <strong>電車でお越しの方</strong><br>
+                            JR東京駅 徒歩5分<br>
+                            地下鉄大手町駅 徒歩3分
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="certifications">
+                    <div class="cert-item">
+                        <div class="cert-icon">🏆</div>
+                        <div>ISO認証取得</div>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-icon">✅</div>
+                        <div>介護保険指定</div>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-icon">🌟</div>
+                        <div>優良事業所</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Panel 2: Inside Flap (中) -->
+            <div class="panel panel-2">
+                <span class="panel-label">内側フラップ</span>
+                <div class="care-scenes">
+                    <h2 style="color: #ff6b9d; text-align: center; margin-bottom: 25px; font-size: 24px;">温かいケアの現場</h2>
+                    
+                    <div class="care-image-container">
+                        <div class="care-scene">
+                            <div class="care-illustration">
+                                <div class="scene-photo">
+                                    <div class="photo-placeholder">
+                                        <span class="placeholder-text">介護士と高齢者の<br>散歩シーン写真</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="scene-caption">散歩のお手伝い</p>
+                        </div>
+                        
+                        <div class="care-scene">
+                            <div class="care-illustration">
+                                <div class="scene-photo">
+                                    <div class="photo-placeholder">
+                                        <span class="placeholder-text">食事介助の<br>温かいシーン写真</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="scene-caption">食事介助</p>
+                        </div>
+                        
+                        <div class="care-scene">
+                            <div class="care-illustration">
+                                <div class="scene-photo">
+                                    <div class="photo-placeholder">
+                                        <span class="placeholder-text">リハビリ支援の<br>専門的ケア写真</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="scene-caption">リハビリ支援</p>
+                        </div>
+                    </div>
+                    
+                    <div class="care-message">
+                        <p style="text-align: center; color: #666; font-size: 16px; margin-top: 25px; line-height: 1.8;">
+                            私たちは、ご利用者様の笑顔を大切に<br>
+                            一人ひとりに寄り添ったケアを提供します
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="submit-info">
+                    📞 0120-123-4567
+                </div>
+            </div>
+            
+            <!-- Panel 3: Front Cover (右) -->
+            <div class="panel panel-3">
+                <span class="panel-label" style="background-color: rgba(255,255,255,0.3); color: white;">表紙</span>
+                <div class="cover-decoration"></div>
+                <h1 class="logo-large">Meguri</h1>
+                <p class="tagline-large">心に寄り添う介護サービス</p>
+                <div class="cover-icons">
+                    <div class="cover-icon">🏠</div>
+                    <div class="cover-icon">❤️</div>
+                    <div class="cover-icon">🤝</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- INSIDE (内側) -->
+        <div class="brochure-side inside">
+            <div class="fold-line fold-line-1"></div>
+            <div class="fold-line fold-line-2"></div>
+            
+            <!-- Panel 4: Services Detail (左) -->
+            <div class="panel panel-1">
+                <span class="panel-label">サービス詳細</span>
+                <div class="section-header">
+                    <h2>私たちのサービス</h2>
+                </div>
+                
+                <div class="services-detailed">
+                    <div class="service-detail">
+                        <div class="service-detail-icon">🏠</div>
+                        <div class="service-detail-content">
+                            <h3>訪問介護サービス</h3>
+                            <p>ご自宅での生活を継続できるよう、経験豊富なヘルパーが訪問。入浴・食事・排泄の介助から、掃除・洗濯・買い物代行まで幅広くサポートします。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="service-detail">
+                        <div class="service-detail-icon">🏥</div>
+                        <div class="service-detail-content">
+                            <h3>通所介護（デイサービス）</h3>
+                            <p>日中お預かりし、機能訓練やレクリエーション活動を提供。送迎付きで、ご家族の介護負担も軽減します。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="service-detail">
+                        <div class="service-detail-icon">📋</div>
+                        <div class="service-detail-content">
+                            <h3>居宅介護支援</h3>
+                            <p>ケアマネジャーが最適な介護プランを作成。各種手続きの代行や、定期的な見直しで安心をお届けします。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Panel 5: Staff & Features (中) -->
+            <div class="panel panel-2">
+                <span class="panel-label">スタッフ・特徴</span>
+                <div class="staff-showcase">
+                    <h3 style="color: #ff6b9d; text-align: center; margin-bottom: 20px;">私たちがサポートします</h3>
+                    <div class="staff-grid">
+                        <div class="staff-card">
+                            <div class="staff-photo">
+                                <div class="staff-photo-placeholder">
+                                    <span class="photo-icon">👤</span>
+                                </div>
+                            </div>
+                            <div class="staff-name">田中 美咲</div>
+                            <div class="staff-qualification">看護師・介護支援専門員</div>
+                        </div>
+                        <div class="staff-card">
+                            <div class="staff-photo">
+                                <div class="staff-photo-placeholder">
+                                    <span class="photo-icon">👤</span>
+                                </div>
+                            </div>
+                            <div class="staff-name">佐藤 健太</div>
+                            <div class="staff-qualification">介護福祉士・社会福祉士</div>
+                        </div>
+                        <div class="staff-card">
+                            <div class="staff-photo">
+                                <div class="staff-photo-placeholder">
+                                    <span class="photo-icon">👤</span>
+                                </div>
+                            </div>
+                            <div class="staff-name">鈴木 由美</div>
+                            <div class="staff-qualification">主任ケアマネジャー</div>
+                        </div>
+                        <div class="staff-card">
+                            <div class="staff-photo">
+                                <div class="staff-photo-placeholder">
+                                    <span class="photo-icon">👤</span>
+                                </div>
+                            </div>
+                            <div class="staff-name">高橋 誠</div>
+                            <div class="staff-qualification">理学療法士</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="features-list">
+                    <h3 style="color: #ff6b9d; margin-bottom: 15px;">Meguriの強み</h3>
+                    <div class="feature">
+                        <span class="feature-check">✓</span>
+                        <span>24時間365日の相談受付体制</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-check">✓</span>
+                        <span>有資格者による質の高いケア</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-check">✓</span>
+                        <span>地域連携による充実のサポート</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-check">✓</span>
+                        <span>定期研修による技術向上</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Panel 6: Testimonials & CTA (右) -->
+            <div class="panel panel-3">
+                <span class="panel-label">お客様の声・CTA</span>
+                <div class="testimonials">
+                    <h3 style="color: #ff6b9d; text-align: center; margin-bottom: 20px;">ご利用者様の声</h3>
+                    <div class="testimonial">
+                        <p class="testimonial-text">"Meguriさんのおかげで、母も私も安心して生活できています。スタッフの皆さんの温かい対応に感謝しています。"</p>
+                        <p class="testimonial-author">- A.K様（50代・女性）</p>
+                    </div>
+                    <div class="testimonial">
+                        <p class="testimonial-text">"プロフェッショナルなケアと、家族のような温かさ。Meguriを選んで本当に良かったです。"</p>
+                        <p class="testimonial-author">- T.M様（60代・男性）</p>
+                    </div>
+                </div>
+                
+                <div class="cta-section">
+                    <h2 class="cta-title">まずはお気軽にご相談ください</h2>
+                    <div class="phone-large">📞 0120-123-4567</div>
+                    <p class="cta-hours">
+                        受付時間：9:00-18:00（月〜金）<br>
+                        土日祝日も相談可能
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
