@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meguri - レスポンシブナビゲーション</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans JP", sans-serif;
+            padding-top: 80px;
+        }
+
+        /* Navigation Header Styles */
+        .meguri-nav-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(255, 182, 193, 0.3);
+            z-index: 1000;
+            height: 80px;
+        }
+
+        .meguri-nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .meguri-logo-wrapper {
+            height: 50px;
+            max-width: 100px;
+            display: flex;
+            align-items: center;
+        }
+
+        .meguri-logo {
+            height: 100%;
+            width: auto;
+            max-width: 100px;
+            object-fit: contain;
+        }
+
+        .meguri-nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .meguri-nav-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .meguri-nav-link:hover {
+            color: #FFB6C1;
+        }
+
+        .meguri-nav-link.meguri-cta {
+            background: linear-gradient(135deg, #FFB6C1 0%, #ADD8E6 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .meguri-nav-link.meguri-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 182, 193, 0.4);
+        }
+
+        /* Mobile Menu Toggle */
+        .meguri-mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            width: 40px;
+            height: 40px;
+            position: relative;
+        }
+
+        .meguri-hamburger {
+            width: 25px;
+            height: 2px;
+            background: linear-gradient(90deg, #FFB6C1 0%, #ADD8E6 100%);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transition: background-color 0.3s ease;
+        }
+
+        .meguri-hamburger::before,
+        .meguri-hamburger::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #FFB6C1 0%, #ADD8E6 100%);
+            left: 0;
+            transition: transform 0.3s ease, top 0.3s ease;
+        }
+
+        .meguri-hamburger::before {
+            top: -8px;
+        }
+
+        .meguri-hamburger::after {
+            top: 8px;
+        }
+
+        /* Responsive Styles */
+        
+        /* Large Tablets and Small Desktops */
+        @media (max-width: 1024px) {
+            .meguri-nav-container {
+                padding: 0 15px;
+            }
+            
+            .meguri-nav-links {
+                gap: 20px;
+            }
+            
+            .meguri-nav-link {
+                font-size: 14px;
+            }
+            
+            .meguri-nav-link.meguri-cta {
+                padding: 8px 18px;
+            }
+        }
+
+        /* Tablets */
+        @media (max-width: 768px) {
+            .meguri-nav-header {
+                height: 70px;
+            }
+
+            body {
+                padding-top: 70px;
+            }
+
+            .meguri-logo-wrapper {
+                height: 45px;
+                max-width: 90px;
+            }
+
+            .meguri-mobile-toggle {
+                display: block;
+            }
+
+            .meguri-nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                width: 100%;
+                max-width: 300px;
+                height: calc(100vh - 70px);
+                background-color: white;
+                flex-direction: column;
+                padding: 30px 20px;
+                gap: 15px;
+                box-shadow: -2px 0 10px rgba(255, 182, 193, 0.2);
+                transition: right 0.3s ease;
+                overflow-y: auto;
+                align-items: stretch;
+            }
+
+            .meguri-nav-links.meguri-active {
+                right: 0;
+            }
+
+            .meguri-nav-link {
+                width: 100%;
+                text-align: center;
+                padding: 12px 0;
+                font-size: 16px;
+                border-bottom: 1px solid rgba(255, 182, 193, 0.2);
+            }
+
+            .meguri-nav-link:last-child {
+                border-bottom: none;
+            }
+
+            .meguri-nav-link.meguri-cta {
+                padding: 12px 20px;
+                margin-top: 10px;
+            }
+
+            /* Mobile menu open state */
+            .meguri-mobile-toggle.meguri-active .meguri-hamburger {
+                background: transparent;
+            }
+
+            .meguri-mobile-toggle.meguri-active .meguri-hamburger::before {
+                transform: rotate(45deg);
+                top: 0;
+            }
+
+            .meguri-mobile-toggle.meguri-active .meguri-hamburger::after {
+                transform: rotate(-45deg);
+                top: 0;
+            }
+        }
+
+        /* Small Mobile */
+        @media (max-width: 480px) {
+            .meguri-nav-header {
+                height: 60px;
+            }
+
+            body {
+                padding-top: 60px;
+            }
+
+            .meguri-nav-container {
+                padding: 0 10px;
+            }
+
+            .meguri-logo-wrapper {
+                height: 40px;
+                max-width: 80px;
+            }
+
+            .meguri-nav-links {
+                top: 60px;
+                height: calc(100vh - 60px);
+                max-width: 280px;
+                padding: 20px 15px;
+            }
+
+            .meguri-mobile-toggle {
+                width: 35px;
+                height: 35px;
+            }
+
+            .meguri-hamburger {
+                width: 22px;
+            }
+        }
+
+        /* Very Small Mobile */
+        @media (max-width: 360px) {
+            .meguri-logo-wrapper {
+                height: 35px;
+                max-width: 70px;
+            }
+
+            .meguri-nav-links {
+                max-width: 100%;
+            }
+
+            .meguri-nav-link {
+                font-size: 15px;
+                padding: 10px 0;
+            }
+        }
+
+        /* Demo Sections for Testing */
+        .demo-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            background: linear-gradient(180deg, rgba(255, 182, 193, 0.05) 0%, rgba(173, 216, 230, 0.05) 100%);
+        }
+
+        .demo-section:nth-child(even) {
+            background: linear-gradient(180deg, rgba(173, 216, 230, 0.05) 0%, rgba(255, 182, 193, 0.05) 100%);
+        }
+
+        .demo-section h2 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .demo-section p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        /* Device indicator for testing */
+        .device-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #FFB6C1 0%, #ADD8E6 100%);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            z-index: 9999;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="meguri-nav-header">
+        <div class="meguri-nav-container">
+            <a href="#" class="meguri-logo-wrapper">
+                <img src="http://xs932720.xsrv.jp/meguri/wp-content/uploads/2025/08/41F30436-BEC7-47BD-B00E-AF78B5B8D80C.png" alt="Meguri Logo" class="meguri-logo">
+            </a>
+            
+            <nav>
+                <button class="meguri-mobile-toggle" id="meguriMobileToggle" aria-label="Toggle mobile menu">
+                    <span class="meguri-hamburger"></span>
+                </button>
+                
+                <ul class="meguri-nav-links" id="meguriNavLinks">
+                    <li><a href="#about" class="meguri-nav-link">私たちについて</a></li>
+                    <li><a href="#qa" class="meguri-nav-link">Q&A</a></li>
+                    <li><a href="#contact" class="meguri-nav-link meguri-cta">お問い合わせ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+    <!-- Device Indicator -->
+    <div class="device-indicator" id="deviceIndicator"></div>
+
+    <script>
+        // Mobile menu toggle
+        const mobileToggle = document.getElementById('meguriMobileToggle');
+        const navLinks = document.getElementById('meguriNavLinks');
+        
+        mobileToggle.addEventListener('click', function() {
+            this.classList.toggle('meguri-active');
+            navLinks.classList.toggle('meguri-active');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerOffset = window.innerWidth <= 480 ? 60 : (window.innerWidth <= 768 ? 70 : 80);
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    mobileToggle.classList.remove('meguri-active');
+                    navLinks.classList.remove('meguri-active');
+                }
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.meguri-nav-header')) {
+                mobileToggle.classList.remove('meguri-active');
+                navLinks.classList.remove('meguri-active');
+            }
+        });
+
+        // Device indicator for testing
+        function updateDeviceIndicator() {
+            const width = window.innerWidth;
+            const deviceIndicator = document.getElementById('deviceIndicator');
+            let device = '';
+            
+            if (width <= 360) {
+                device = 'Very Small Mobile';
+            } else if (width <= 480) {
+                device = 'Small Mobile';
+            } else if (width <= 768) {
+                device = 'Tablet';
+            } else if (width <= 1024) {
+                device = 'Small Desktop';
+            } else {
+                device = 'Desktop';
+            }
+            
+            deviceIndicator.textContent = `${device} (${width}px)`;
+        }
+
+        // Update on load and resize
+        updateDeviceIndicator();
+        window.addEventListener('resize', updateDeviceIndicator);
+    </script>
+</body>
+</html>
