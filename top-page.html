@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>合同会社三栗ケア - 心に寄り添う介護サービス</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fefefe;
+        }
+
+        .meguri-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section with Night Sky */
+        .meguri-hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 120px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .meguri-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(2px 2px at 20% 30%, #ffffff, transparent),
+                radial-gradient(2px 2px at 40% 70%, rgba(255, 255, 255, 0.8), transparent),
+                radial-gradient(1px 1px at 90% 40%, #ffffff, transparent),
+                radial-gradient(1px 1px at 60% 10%, rgba(255, 255, 255, 0.7), transparent),
+                radial-gradient(2px 2px at 80% 80%, #ffffff, transparent),
+                radial-gradient(1px 1px at 10% 60%, rgba(255, 255, 255, 0.9), transparent),
+                radial-gradient(1px 1px at 30% 20%, #ffffff, transparent),
+                radial-gradient(2px 2px at 70% 50%, rgba(255, 255, 255, 0.6), transparent);
+            background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px, 400px 400px, 200px 200px, 300px 300px, 500px 500px;
+            animation: twinkle 8s infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        .meguri-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .meguri-hero-title {
+            font-size: 52px;
+            color: #ffffff !important;
+            margin-bottom: 30px;
+            font-weight: 300;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+        }
+
+        .meguri-hero-subtitle {
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 50px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .meguri-cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #4a90e2 0%, #ff8ab3 100%);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            box-shadow: 0 8px 25px rgba(74, 144, 226, 0.4);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .meguri-cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(74, 144, 226, 0.6);
+        }
+
+        /* Representative Message Section */
+        .meguri-message-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #fafafa 0%, #f5f7fa 100%);
+            position: relative;
+        }
+
+        .meguri-message-section::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(135deg, #1a1a2e 0%, transparent 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+        }
+
+        .meguri-message-container {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+            flex-wrap: wrap;
+        }
+
+        .meguri-message-content {
+            flex: 1;
+            min-width: 400px;
+        }
+
+        .meguri-message-image {
+            flex: 0 0 350px;
+            text-align: center;
+        }
+
+        .meguri-rep-photo {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            border: 5px solid rgba(74, 144, 226, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .meguri-rep-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .meguri-rep-name {
+            font-size: 28px;
+            color: #4a90e2;
+            font-weight: 600;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .meguri-message-title {
+            font-size: 42px;
+            color: #4a90e2;
+            margin-bottom: 40px;
+            position: relative;
+            padding-left: 30px;
+            font-weight: 300;
+        }
+
+        .meguri-message-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 50px;
+            background: linear-gradient(180deg, #4a90e2, #ff8ab3, #7dd87d);
+            border-radius: 3px;
+        }
+
+        .meguri-message-text {
+            font-size: 19px;
+            line-height: 2.2;
+            color: #555;
+            margin-bottom: 25px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .meguri-company-name {
+            font-size: 28px;
+            color: #ff8ab3;
+            font-style: italic;
+            text-align: right;
+            margin-top: 40px;
+            font-weight: 300;
+            letter-spacing: 3px;
+        }
+
+        /* Services Section */
+        .meguri-services-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        }
+
+        .meguri-services-title {
+            font-size: 42px;
+            color: #4a90e2;
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+            font-weight: 300;
+        }
+
+        .meguri-services-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, #4a90e2, #ff8ab3, #7dd87d);
+            border-radius: 2px;
+        }
+
+        .meguri-services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 50px;
+            margin-top: 80px;
+        }
+
+        .meguri-service-card {
+            background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+            border-radius: 25px;
+            padding: 50px 35px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            border: 1px solid rgba(74, 144, 226, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .meguri-service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #4a90e2, #ff8ab3, #7dd87d);
+        }
+
+        .meguri-service-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 70px rgba(0,0,0,0.15);
+        }
+
+        .meguri-service-icon {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 30px;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+        }
+
+        .meguri-service-name {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .meguri-service-desc {
+            font-size: 16px;
+            color: #666;
+            line-height: 2;
+        }
+
+        /* Contact Section */
+        .meguri-contact-section {
+            background: linear-gradient(135deg, #e6f3ff 0%, #ffe6f0 50%, #e6ffe6 100%);
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .meguri-contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><defs><radialGradient id="a" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(255,255,255,0.1)"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs><circle cx="20" cy="10" r="2" fill="url(%23a)"/><circle cx="80" cy="10" r="2" fill="url(%23a)"/></svg>');
+            opacity: 0.5;
+        }
+
+        .meguri-contact-title {
+            font-size: 38px;
+            color: #4a90e2;
+            margin-bottom: 40px;
+            font-weight: 300;
+            position: relative;
+        }
+
+        .meguri-contact-details {
+            font-size: 20px;
+            color: #555;
+            line-height: 2.5;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .meguri-contact-link {
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .meguri-contact-link:hover {
+            color: #ff8ab3;
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .meguri-hero-title {
+                font-size: 38px;
+            }
+
+            .meguri-hero-subtitle {
+                font-size: 18px;
+            }
+
+            .meguri-message-container {
+                flex-direction: column-reverse;
+                gap: 50px;
+            }
+
+            .meguri-message-content {
+                min-width: auto;
+            }
+
+            .meguri-message-image {
+                flex: 1;
+            }
+
+            .meguri-services-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .meguri-message-title {
+                font-size: 32px;
+            }
+
+            .meguri-services-title {
+                font-size: 32px;
+            }
+
+            .meguri-contact-title {
+                font-size: 28px;
+            }
+
+            .meguri-contact-details {
+                font-size: 16px;
+                padding: 30px;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="meguri-hero">
+        <div class="meguri-container">
+            <div class="meguri-hero-content">
+                <h1 class="meguri-hero-title">心に寄り添う、確かな介護</h1>
+                <p class="meguri-hero-subtitle">重度訪問介護を中心に、24時間365日あなたとご家族を支えます</p>
+                <a href="#contact" class="meguri-cta-button">お問い合わせ</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Representative Message Section -->
+    <section class="meguri-message-section">
+        <div class="meguri-container">
+            <div class="meguri-message-container">
+                <div class="meguri-message-content">
+                    <h2 class="meguri-message-title">代表メッセージ</h2>
+                    <p class="meguri-message-text">
+                        はじめまして、合同会社三栗（めぐり）ケアの代表を務めている木場秀美です。
+                    </p>
+                    <p class="meguri-message-text">
+                        私たち三栗ケアは、重度訪問介護を中心に介護を必要とする方々とそのご家族に、安心と笑顔を届けることを使命としております。介護は、単なるサポートではなく、人生の大切な時間に寄り添うことだと私たちは考えています。
+                    </p>
+                    <p class="meguri-company-name">Meguri</p>
+                </div>
+                <div class="meguri-message-image">
+                    <div class="meguri-rep-photo">
+                        <img src="http://xs932720.xsrv.jp/meguri/wp-content/uploads/2025/08/Screenshot-2025-08-23-at-10.45.21.png" alt="木場秀美" />
+                    </div>
+                    <p class="meguri-rep-name">木場秀美</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="meguri-services-section">
+        <div class="meguri-container">
+            <h2 class="meguri-services-title">私たちのサービス</h2>
+            <div class="meguri-services-grid">
+                <!-- Health Check Service -->
+                <div class="meguri-service-card">
+                    <div class="meguri-service-icon">
+                        <svg viewBox="0 0 90 90" fill="none">
+                            <circle cx="45" cy="45" r="40" stroke="#4a90e2" stroke-width="3" fill="#e6f3ff"/>
+                            <path d="M45 20V70M20 45H70" stroke="#4a90e2" stroke-width="4" stroke-linecap="round"/>
+                            <circle cx="45" cy="45" r="10" fill="#ff8ab3"/>
+                            <path d="M25 25L32 32M65 25L58 32M25 65L32 58M65 65L58 58" stroke="#7dd87d" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="meguri-service-name">健康状態の確認</h3>
+                    <p class="meguri-service-desc">血圧、体温、脈拍、呼吸のチェックなど、日々の健康管理をサポートします</p>
+                </div>
+
+                <!-- Daily Care Service -->
+                <div class="meguri-service-card">
+                    <div class="meguri-service-icon">
+                        <svg viewBox="0 0 90 90" fill="none">
+                            <rect x="15" y="25" width="60" height="45" rx="22" fill="#ffe6f0" stroke="#ff8ab3" stroke-width="3"/>
+                            <circle cx="35" cy="50" r="6" fill="#4a90e2"/>
+                            <circle cx="55" cy="50" r="6" fill="#4a90e2"/>
+                            <path d="M30 62Q45 72 60 62" stroke="#7dd87d" stroke-width="3" stroke-linecap="round" fill="none"/>
+                            <path d="M25 15L30 25M65 15L60 25" stroke="#ff8ab3" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="meguri-service-name">日常生活の介護</h3>
+                    <p class="meguri-service-desc">食事・排泄・着替え・入浴・清拭・移動など、生活全般をサポートします</p>
+                </div>
+
+                <!-- Daily Support Service -->
+                <div class="meguri-service-card">
+                    <div class="meguri-service-icon">
+                        <svg viewBox="0 0 90 90" fill="none">
+                            <rect x="20" y="30" width="50" height="40" rx="8" fill="#e6ffe6" stroke="#7dd87d" stroke-width="3"/>
+                            <rect x="25" y="20" width="40" height="8" rx="4" fill="#4a90e2"/>
+                            <circle cx="35" cy="50" r="4" fill="#ff8ab3"/>
+                            <circle cx="45" cy="50" r="4" fill="#ff8ab3"/>
+                            <circle cx="55" cy="50" r="4" fill="#ff8ab3"/>
+                            <path d="M30 60H60" stroke="#4a90e2" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="meguri-service-name">日常生活のお手伝い</h3>
+                    <p class="meguri-service-desc">掃除・洗濯・買い物・調理・薬の受け取りなど、家事全般をサポートします</p>
+                </div>
+
+                <!-- Medical Care Service -->
+                <div class="meguri-service-card">
+                    <div class="meguri-service-icon">
+                        <svg viewBox="0 0 90 90" fill="none">
+                            <path d="M45 15C25 15 25 28 25 40C25 58 45 75 45 75C45 75 65 58 65 40C65 28 65 15 45 15Z" fill="#ffe6f0" stroke="#ff8ab3" stroke-width="3"/>
+                            <rect x="38" y="32" width="14" height="26" rx="3" fill="#4a90e2"/>
+                            <rect x="31" y="39" width="28" height="12" rx="3" fill="#4a90e2"/>
+                            <circle cx="45" cy="25" r="4" fill="#7dd87d"/>
+                        </svg>
+                    </div>
+                    <h3 class="meguri-service-name">医療的ケア</h3>
+                    <p class="meguri-service-desc">喀痰吸引や胃瘻からの経管栄養など、医療的ケアにも対応いたします</p>
+                </div>
+
+                <!-- 24-Hour Care Service -->
+                <div class="meguri-service-card">
+                    <div class="meguri-service-icon">
+                        <svg viewBox="0 0 90 90" fill="none">
+                            <circle cx="45" cy="45" r="35" fill="#e6f3ff" stroke="#4a90e2" stroke-width="3"/>
+                            <path d="M45 20V45L60 60" stroke="#ff8ab3" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="45" cy="45" r="6" fill="#7dd87d"/>
+                            <text x="45" y="12" text-anchor="middle" fill="#4a90e2" font-size="12" font-weight="bold">24</text>
+                        </svg>
+                    </div>
+                    <h3 class="meguri-service-name">24時間の見守り</h3>
+                    <p class="meguri-service-desc">ご自宅での24時間体制による介護・見守りで安心をお届けします</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="meguri-contact-section" id="contact">
+        <div class="meguri-container">
+            <h2 class="meguri-contact-title">お問い合わせ</h2>
+            <div class="meguri-contact-details">
+                <p><strong>合同会社三栗ケア介護事務所</strong></p>
+                <p>〒179-0073 東京都練馬区田柄２−１４−６</p>
+                <p>TEL: <a href="tel:080-9687-6667" class="meguri-contact-link">080-9687-6667</a></p>
+                <p>WEB: <a href="https://www.meguri-kaigo.com" class="meguri-contact-link">www.meguri-kaigo.com</a></p>
+                <p>営業時間: 平日 9:00〜17:00 / 土日祝休</p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
