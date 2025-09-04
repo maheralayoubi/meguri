@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>連続セミナー第一弾！頭の中のイメージを【その場】で形に。AI×「要件定義とモックアップ」</title>
+    <style>
+        /* Reset and Base Styles */
+        .seminar-content * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .seminar-content {
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #ffffff;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Typography */
+        .seminar-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0E2342;
+            margin-bottom: 2rem;
+            line-height: 1.3;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #00A1E9;
+        }
+
+        .seminar-content h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #0E2342;
+            margin-bottom: 1.5rem;
+            margin-top: 3rem;
+            line-height: 1.4;
+        }
+
+        .seminar-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #0E2342;
+            margin-bottom: 1rem;
+            margin-top: 2.5rem;
+            line-height: 1.4;
+        }
+
+        .seminar-content p {
+            margin-bottom: 1.5rem;
+            color: #4a4a4a;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* Event Tags */
+        .seminar-event-tags {
+            margin-bottom: 2rem;
+        }
+
+        .seminar-event-tag {
+            background-color: #00A1E9;
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            display: inline-block;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        /* Problem Statement */
+        .seminar-problem-quote {
+            border-left: 4px solid #00A1E9;
+            margin: 2.5rem 0;
+            padding: 1.5rem 2rem;
+            background-color: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .seminar-problem-quote p {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Benefits List */
+        .seminar-content ul {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .seminar-content li {
+            margin-bottom: 0.8rem;
+            color: #4a4a4a;
+            line-height: 1.8;
+        }
+
+        .seminar-content li strong {
+            color: #0E2342;
+        }
+
+        /* Highlight Text */
+        .seminar-highlight {
+            background-color: rgba(0, 161, 233, 0.1);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        /* Section Divider */
+        .seminar-divider {
+            height: 2px;
+            background: linear-gradient(to right, #00A1E9, transparent);
+            margin: 3rem 0;
+            border: none;
+        }
+
+        /* Event Details Box */
+        .seminar-details-box {
+            background: #ffffff;
+            border: 2px solid #00A1E9;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+        }
+
+        .seminar-details-box h3 {
+            color: #0E2342;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .seminar-detail-item {
+            margin-bottom: 1rem;
+            padding: 0.5rem 0;
+        }
+
+        .seminar-detail-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .seminar-detail-label {
+            font-weight: 600;
+            color: #0E2342;
+            display: inline-block;
+            width: 80px;
+        }
+
+        .seminar-detail-value {
+            color: #4a4a4a;
+        }
+
+        .seminar-price {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #00A1E9;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        /* Instructor Section */
+        .seminar-instructor {
+            background-color: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 3rem 0;
+        }
+
+        .seminar-instructor h3 {
+            margin-top: 0;
+        }
+
+        /* Target Audience Quote */
+        .seminar-target-quote {
+            border-left: 4px solid #00A1E9;
+            margin: 2.5rem 0;
+            padding: 1.5rem 2rem;
+            background-color: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .seminar-target-quote p {
+            color: #555;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .seminar-cta-section {
+            background: linear-gradient(135deg, #0E2342 0%, #00A1E9 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .seminar-cta-section h2 {
+            color: white;
+            margin-bottom: 1rem;
+            margin-top: 0;
+            font-size: 2.2rem;
+        }
+
+        .seminar-cta-section p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+
+        .seminar-cta-button {
+            display: inline-block;
+            background-color: white;
+            color: #0E2342;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+        }
+
+        .seminar-cta-button:hover {
+            transform: translateY(-2px);
+            background-color: #f8f9fa;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .seminar-content {
+                padding: 1.5rem;
+            }
+
+            .seminar-content h1 {
+                font-size: 2rem;
+            }
+
+            .seminar-content h2 {
+                font-size: 1.75rem;
+            }
+
+            .seminar-content h3 {
+                font-size: 1.35rem;
+            }
+
+            .seminar-details-box {
+                padding: 1.5rem;
+            }
+
+            .seminar-cta-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .seminar-cta-section h2 {
+                font-size: 1.75rem;
+            }
+
+            .seminar-cta-button {
+                padding: 0.875rem 2rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="seminar-content">
+        <article>
+            <div class="seminar-event-tags">
+                <span class="seminar-event-tag">連続セミナー第一弾</span>
+                <span class="seminar-event-tag">AI活用</span>
+                <span class="seminar-event-tag">要件定義</span>
+                <span class="seminar-event-tag">モックアップ</span>
+            </div>
+            <div class="seminar-problem-quote">
+                <p>「打合せのあとに"完成したら、なんか違う…"」——システム開発あるあるですね。</p>
+            </div>
+
+            <p>BonZuttnerでは、この"あるある"をAIで吹き飛ばすセミナーを開催します！</p>
+
+            <p>本イベントでは、システム完成前の大事なステップ「要件定義」と「モックアップ作成」を、AIの力を借りて<span class="seminar-highlight">【その場で】</span>実演します。アイデアを即座に画面のたたき台にし、相手とすり合わせながら「違う」を「これだ！」に変える流れを体感していただけます。</p>
+
+            <hr class="seminar-divider">
+
+            <h2>セミナーで得られること</h2>
+            <ul>
+                <li><strong>アイデアをAIでモックアップ化するコツ</strong></li>
+                <li><strong>打合せ中にズレを言語化し、その場で修正→合意に持ち込む技術</strong></li>
+                <li><strong>外注前に「作る／作らない」を明確にし、プロジェクトをスムーズに進める要件定義の骨子</strong></li>
+            </ul>
+
+            <p>「モックアップって何？」「要件定義って必要？」と思った方も安心。導入から丁寧に解説し、90分で<span class="seminar-highlight">"実務に役立つ具体的スキル"</span>を持ち帰れます。</p>
+
+            <div class="seminar-details-box">
+                <h3>開催概要</h3>
+                <div class="seminar-detail-item">
+                    <span class="seminar-detail-label">日時：</span>
+                    <span class="seminar-detail-value">2025年9月17日（水）19:00～21:00</span>
+                </div>
+                <div class="seminar-detail-item">
+                    <span class="seminar-detail-label">場所：</span>
+                    <span class="seminar-detail-value">東京都港区赤坂2丁目17-73 エムアイビル4階 株式会社BonZuttner</span>
+                </div>
+                <div class="seminar-price">参加費：5,000円</div>
+            </div>
+
+            <hr class="seminar-divider">
+
+            <h3>講師紹介</h3>
+            <div class="seminar-instructor">
+                <p>今回のナビゲーターは、<strong>西嶋夕夏（BonZuttner COO）</strong>。元大手外資系コンサルティングファーム出身で、システム開発PMOとして10年以上のキャリアを誇ります。大企業からスタートアップまで幅広い現場を渡り歩き、「ズレをなくす」ことに情熱を注いできた頼れるプロ。現在はAI活用を軸に、業務効率化や開発支援を推進中です。</p>
+            </div>
+
+            <hr class="seminar-divider">
+
+            <div class="seminar-target-quote">
+                <p>「口で説明するのは苦手…」という方も、</p>
+                <p>「外注する前に整理したい！」という方も、</p>
+                <p>ぜひご参加ください！</p>
+            </div>
+
+            <p>打合せの時間を<span class="seminar-highlight">"未来の完成形"</span>に変える2時間。</p>
+        </article>
+
+        <div class="seminar-cta-section">
+            <h2>お申し込み</h2>
+            <p>システム開発の「あるある」を解決する実践的なセミナーです。AI活用で効率化を図りたい方、お待ちしております。</p>
+            <a href="#" class="seminar-cta-button">今すぐ参加申し込み</a>
+        </div>
+    </div>
+</body>
+</html>
