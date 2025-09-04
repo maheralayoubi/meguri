@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ウォーターフォールを飛び越える新しい開発スタイル - ニシジマ式 Skip-Fall 開発</title>
+    <style>
+        /* Reset and Base Styles */
+        .development-wrapper * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .development-wrapper {
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #ffffff;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Typography */
+        .development-wrapper h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0E2342;
+            margin-bottom: 2rem;
+            line-height: 1.3;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #00A1E9;
+        }
+
+        .development-wrapper h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #0E2342;
+            margin-bottom: 1.5rem;
+            margin-top: 3rem;
+            line-height: 1.4;
+        }
+
+        .development-wrapper h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #0E2342;
+            margin-bottom: 1rem;
+            margin-top: 2.5rem;
+            line-height: 1.4;
+        }
+
+        .development-wrapper h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #0E2342;
+            margin-bottom: 0.8rem;
+            margin-top: 2rem;
+        }
+
+        .development-wrapper p {
+            margin-bottom: 1.5rem;
+            color: #4a4a4a;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* Method Tags */
+        .development-method-tags {
+            margin-bottom: 2rem;
+        }
+
+        .development-method-tag {
+            background-color: #00A1E9;
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            display: inline-block;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        /* Problem Statement */
+        .development-problem-block {
+            border-left: 4px solid #00A1E9;
+            margin: 2.5rem 0;
+            padding: 1.5rem 2rem;
+            background-color: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .development-problem-block p {
+            color: #555;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Process Steps */
+        .development-process-step {
+            background-color: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .development-process-step h4 {
+            color: #0E2342;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .development-process-step p {
+            margin-bottom: 1rem;
+            color: #4a4a4a;
+        }
+
+        .development-process-step p:last-child {
+            margin-bottom: 0;
+        }
+
+        .development-step-note {
+            background-color: rgba(0, 161, 233, 0.1);
+            border: 1px solid rgba(0, 161, 233, 0.2);
+            border-radius: 6px;
+            padding: 1rem;
+            margin-top: 1rem;
+            color: #0E2342;
+            font-size: 0.95rem;
+        }
+
+        .development-step-note::before {
+            content: "👉 ";
+            font-weight: bold;
+        }
+
+        /* Lists */
+        .development-wrapper ul {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .development-wrapper li {
+            margin-bottom: 0.8rem;
+            color: #4a4a4a;
+            line-height: 1.8;
+        }
+
+        .development-wrapper li strong {
+            color: #0E2342;
+        }
+
+        /* Highlight Text */
+        .development-emphasis {
+            background-color: rgba(0, 161, 233, 0.1);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #0E2342;
+        }
+
+        /* Section Divider */
+        .development-separator {
+            height: 2px;
+            background: linear-gradient(to right, #00A1E9, transparent);
+            margin: 3rem 0;
+            border: none;
+        }
+
+        /* Advantages/Disadvantages Tables */
+        .development-pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .development-pros-box,
+        .development-cons-box {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 2px solid;
+        }
+
+        .development-pros-box {
+            border-color: #28a745;
+            background-color: rgba(40, 167, 69, 0.05);
+        }
+
+        .development-cons-box {
+            border-color: #dc3545;
+            background-color: rgba(220, 53, 69, 0.05);
+        }
+
+        .development-pros-title,
+        .development-cons-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .development-pros-title {
+            color: #28a745;
+        }
+
+        .development-cons-title {
+            color: #dc3545;
+        }
+
+        .development-pros-box ul,
+        .development-cons-box ul {
+            margin-left: 1.5rem;
+            margin-bottom: 0;
+        }
+
+        .development-pros-box li,
+        .development-cons-box li {
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+        }
+
+        /* Summary Box */
+        .development-summary-box {
+            background: linear-gradient(135deg, rgba(0, 161, 233, 0.1) 0%, rgba(14, 35, 66, 0.05) 100%);
+            border: 2px solid #00A1E9;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+        }
+
+        .development-summary-box h3 {
+            margin-top: 0;
+            color: #0E2342;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        /* CTA Section */
+        .development-cta-section {
+            background: linear-gradient(135deg, #0E2342 0%, #00A1E9 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .development-cta-section h2 {
+            color: white;
+            margin-bottom: 1rem;
+            margin-top: 0;
+            font-size: 2rem;
+        }
+
+        .development-cta-section p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+
+        .development-cta-button {
+            display: inline-block;
+            background-color: white;
+            color: #0E2342;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+        }
+
+        .development-cta-button:hover {
+            transform: translateY(-2px);
+            background-color: #f8f9fa;
+        }
+
+        /* Client Quotes */
+        .development-client-quote {
+            border-left: 4px solid #00A1E9;
+            margin: 2rem 0;
+            padding: 1.5rem 2rem;
+            background-color: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+        }
+
+        .development-client-quote p {
+            color: #555;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .development-wrapper {
+                padding: 1.5rem;
+            }
+
+            .development-wrapper h1 {
+                font-size: 2rem;
+            }
+
+            .development-wrapper h2 {
+                font-size: 1.75rem;
+            }
+
+            .development-wrapper h3 {
+                font-size: 1.35rem;
+            }
+
+            .development-pros-cons {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .development-process-step {
+                padding: 1.25rem;
+            }
+
+            .development-summary-box {
+                padding: 1.5rem;
+            }
+
+            .development-cta-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .development-cta-section h2 {
+                font-size: 1.75rem;
+            }
+
+            .development-cta-button {
+                padding: 0.875rem 2rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="development-wrapper">
+        <article>
+            <div class="development-method-tags">
+                <span class="development-method-tag">新開発手法</span>
+                <span class="development-method-tag">AI活用</span>
+                <span class="development-method-tag">クライアント主導</span>
+                <span class="development-method-tag">Skip-Fall</span>
+            </div>
+
+            <h1>ウォーターフォールを飛び越える新しい開発スタイル<br>クライアント自身でAIで設計を担う ― ニシジマ式 Skip-Fall 開発</h1>
+
+            <h2>はじめに</h2>
+            <p>システム開発でよくある失敗は、<span class="development-emphasis">「依頼したものと違うものが完成した」</span> というケースです。原因の多くは、要件定義や基本設計をエンジニア任せにしてしまい、クライアントの意図が正しく伝わらないことにあります。</p>
+
+            <p>この課題を解決するために生まれたのが <span class="development-emphasis">「ニシジマ式 Skip-Fall 開発」</span>。最大の特徴は、<span class="development-emphasis">クライアント自身が、要件定義から画面設計・基本設計までを行う</span>点にあります。</p>
+
+            <hr class="development-separator">
+
+            <h2>ニシジマ式 Skip-Fall 開発の流れ</h2>
+
+            <div class="development-process-step">
+                <h4>1. クライアントが要件を整理</h4>
+                <p>まずクライアントが「どんな機能が欲しいか」「どんな画面が必要か」を自分の言葉でまとめます。</p>
+                <p>例：予約ができる仕組み、会員情報を管理したい、支払いを簡単にしたい…など。</p>
+                <div class="development-step-note">
+                    この段階で、エンジニアは関与しません。クライアント自身が主体です。
+                </div>
+            </div>
+
+            <div class="development-process-step">
+                <h4>2. クライアントがAIでモックアップを生成</h4>
+                <p>ここからAIを使って、<strong>画面イメージやサイト構造がその場で自動生成</strong>されます。分厚い仕様書を読む必要はなく、最初から"目に見える形"になるので非常に直感的です。</p>
+                <div class="development-step-note">
+                    ここもクライアント自身がAIを使って行うステップです。
+                </div>
+            </div>
+
+            <div class="development-process-step">
+                <h4>3. クライアントが即レビュー & 修正</h4>
+                <p>AIが作ったモックアップを見ながら、「もっとこうしてほしい」「色を変えたい」などを即フィードバック。この段階でほぼ完成イメージが固まります。</p>
+            </div>
+
+            <div class="development-process-step">
+                <h4>4. 基本設計が完成</h4>
+                <p>モックアップをベースにAIが仕様を整理し、基本設計書が完成。結果として、クライアントが自分の手で<strong>要件定義から基本設計まで完了</strong>できるのです。</p>
+            </div>
+
+            <div class="development-process-step">
+                <h4>5. 開発・テスト・納品</h4>
+                <p>エンジニアは、クライアントが作った設計をそのまま受け取り、開発・テスト・納品に集中します。「思っていたのと違う」というズレがほとんどなくなります。</p>
+            </div>
+
+            <hr class="development-separator">
+
+            <div class="development-pros-cons">
+                <div class="development-pros-box">
+                    <div class="development-pros-title">メリット</div>
+                    <ul>
+                        <li>クライアント主導でズレがない</li>
+                        <li>簡単な開発は自分で設計ができるのでコストの削減が可能</li>
+                        <li>開発スピードが圧倒的に速い</li>
+                        <li>AIが補助するので初心者でも設計可能</li>
+                    </ul>
+                </div>
+
+                <div class="development-cons-box">
+                    <div class="development-cons-title">デメリット</div>
+                    <ul>
+                        <li>大規模で複雑な開発には追加の検討が必要</li>
+                        <li>セキュリティ要件や、ネットワーク要件など開発環境の考慮が必要な開発は不向き</li>
+                        <li>AI生成の設計内容を人が確認するプロセスは必須</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="development-summary-box">
+                <h3>まとめ</h3>
+                <p>ニシジマ式 Skip-Fall 開発は、<span class="development-emphasis">「クライアントがAIを使い、自分で要件定義から基本設計までやってしまう」</span>という革新的な開発スタイルです。</p>
+                
+                <p>これにより「伝わらない」「思っていたのと違う」といった従来の失敗を大幅に減らし、スピード感のある開発が可能になります。小〜中規模のプロジェクトには特に効果的で、これからの時代に合ったアプローチといえるでしょう。</p>
+            </div>
+        </article>
+
+        <div class="development-cta-section">
+            <h2>セミナーのご案内</h2>
+            <p>私たちの会社では、この「ニシジマ式 Skip-Fall 開発」を実際に体験できるセミナーを開催しています。参加者はAIを使いながら、<strong>自分で要件を整理し、モックアップや基本設計を作り上げる</strong>体験ができます。</p>
+            
+            <div class="development-client-quote">
+                <p>「システム開発を依頼したいけど、どう伝えればいいかわからない」</p>
+                <p>「分厚い資料よりも、早く形を見てみたい」</p>
+            </div>
+            
+            <p>そんな方に最適な内容です。ぜひご参加ください。</p>
+            <a href="#" class="development-cta-button">セミナー詳細を見る</a>
+        </div>
+    </div>
+</body>
+</html>
